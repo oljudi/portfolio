@@ -1,7 +1,15 @@
 /* Resume card — same shape language as the terminal window (rounded,
-   cyan border/glow, dark zinc surfaces), sized to sit below the hero. */
+   cyan border/glow, dark zinc surfaces), sized to sit below the hero.
+   flex:2 (paired with .hero-section's flex:3 in App.css) makes this share
+   the real remaining vertical space with the hero in a fixed ratio,
+   instead of claiming an independent 40vh that could overrun the page and
+   collide with the footer or the hero above it. min-height keeps it from
+   collapsing to nothing if the viewport is very short. */
 .resume-section {
-  flex-shrink: 0;
+  flex: 2 1 0;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   padding: 0 2rem 2rem;
   overflow: hidden;
@@ -15,6 +23,8 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  height: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   background: var(--card-bg);
@@ -23,7 +33,6 @@
   box-shadow:
     0 0 30px rgba(0, 184, 212, 0.15),
     0 8px 24px rgba(0, 0, 0, 0.5);
-  max-height: 40vh;
   overflow: hidden;
 }
 

@@ -12,8 +12,12 @@
 /* Hero Section — takes all space the footer and resume section don't,
    and centers the grid inside it. min-height:0 lets it shrink below its
    content so the terminal body absorbs the overflow first. */
+/* flex-grow:3 vs. resume-section's flex-grow:2 — the two share whatever
+   vertical space the (fixed-size) footer leaves, in a fixed 3:2 ratio,
+   instead of each claiming an independent vh value that can add up to
+   more than the viewport and force an overlap. */
 .hero-section {
-  flex: 1;
+  flex: 3 1 0;
   min-height: 0;
   display: flex;
   align-items: stretch;
