@@ -1,0 +1,26 @@
+# Never ship the host's install or build output into the image; the build
+# stage runs `npm ci` and `npm run build` itself.
+node_modules
+dist
+dist-ssr
+
+.git
+.gitignore
+
+Dockerfile
+.dockerignore
+compose.yaml
+compose.override.yaml
+
+*.log
+*.local
+.env
+.env.*
+!.env.example
+
+.vscode
+.idea
+.DS_Store
+.claude
+CLAUDE.md
+README.md

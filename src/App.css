@@ -1,184 +1,513 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
-
-.hero {
+/* Transparent — the body's dot-grid (index.css) shows through. */
+.portfolio-container {
   position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
+  z-index: 2;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
+  overflow: hidden;
+}
 
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
+/* Hero Section — takes all space the footer and resume section don't,
+   and centers the grid inside it. min-height:0 lets it shrink below its
+   content so the terminal body absorbs the overflow first. */
+.hero-section {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 3;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
   }
 }
 
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.1), transparent);
+  animation: scan 8s linear infinite;
+}
 
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
+@keyframes scan {
+  0% {
+    left: -100%;
   }
+  100% {
+    left: 100%;
+  }
+}
 
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
+/* 12-column grid: sidebar (avatar + about) takes 2, terminal takes the
+   remaining 10. Collapses to a single stacked column below 1024px, since
+   a 2-of-12 sidebar has no usable width on tablet/mobile. */
+.hero-grid {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1400px;
+  animation: fadeInUp 1s ease-out;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+  min-height: 0;
+  max-height: 100%;
 
   @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    overflow-y: auto;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Terminal hero layout */
+/* Sidebar: grid-column 1-2 of 12. Its own flex column holds the avatar
+   on top and the about card underneath, as asked. */
+.hero-sidebar {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  min-height: 0;
+
+  @media (max-width: 1024px) {
+    grid-column: 1;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  @media (max-width: 640px) {
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
 }
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+.hero-sidebar .avatar-container {
+  margin-bottom: 0;
+  flex-shrink: 0;
 }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
+.hero-sidebar .avatar-frame {
+  width: 96px;
+  height: 96px;
+}
+
+/* Terminal column: the remaining 10 of 12. */
+.hero-main {
+  grid-column: span 10;
   display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  max-height: 100%;
 
   @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
+    grid-column: 1;
   }
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
+/* Avatar hides on short viewports so the terminal keeps a usable height. */
+@media (max-height: 620px) and (min-width: 1025px) {
+  .hero-sidebar .avatar-container {
+    display: none;
   }
 }
 
-.ticks {
-  position: relative;
+/* ============================================
+   About panel — sidebar card under the avatar
+   ============================================ */
+.about-panel {
   width: 100%;
+  padding: 1.1rem 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  text-align: center;
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
+  @media (max-width: 1024px) and (min-width: 641px) {
+    text-align: left;
+    flex: 1;
+  }
+}
+
+.about-name {
+  margin: 0 0 0.15rem;
+  font-size: 1.05rem;
+  color: var(--text-bright);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.about-title {
+  margin: 0 0 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
+  color: var(--secondary);
+  text-shadow: 0 0 6px rgba(0, 184, 212, 0.4);
+}
+
+.about-bio {
+  margin: 0 0 0.85rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.about-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+
+  @media (max-width: 1024px) and (min-width: 641px) {
+    justify-content: flex-start;
+  }
+}
+
+.about-social-link {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.5px;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--secondary);
+  border-radius: 9999px;
+  color: var(--secondary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.about-social-link:hover {
+  background: rgba(0, 184, 212, 0.12);
+  box-shadow: 0 0 10px rgba(0, 184, 212, 0.3);
+}
+
+/* ============================================
+   Avatar — round, with orbiting cyberpunk rings
+   ============================================ */
+.avatar-container {
+  margin-bottom: 3rem;
+  animation: fadeInUp 1s ease-out;
+}
+
+/* Positioning box. Rings live outside the clipped disc, so this stays
+   unclipped and the disc does the masking. */
+.avatar-frame {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  border-radius: 50%;
+  animation: avatar-breathe 3s ease-in-out infinite;
+}
+
+/* The clipped circle holding the photo. */
+.avatar-disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--secondary);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 240, 255, 0.15) 0%,
+    rgba(255, 0, 110, 0.08) 100%
+  );
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.9) contrast(1.1) saturate(1.05);
+  transition: filter 0.3s ease, transform 0.4s ease;
+}
+
+/* Chromatic aberration on hover — the cheap, convincing glitch. */
+.avatar-frame:hover .avatar-image {
+  transform: scale(1.06);
+  animation: avatar-rgb-split 0.25s steps(2) infinite;
+}
+
+@keyframes avatar-rgb-split {
+  0% {
+    filter: brightness(1.05) contrast(1.25)
+      drop-shadow(-2px 0 rgba(255, 0, 110, 0.75))
+      drop-shadow(2px 0 rgba(0, 240, 255, 0.75));
+  }
+  100% {
+    filter: brightness(1.05) contrast(1.25)
+      drop-shadow(2px 0 rgba(255, 0, 110, 0.75))
+      drop-shadow(-2px 0 rgba(0, 240, 255, 0.75));
+  }
+}
+
+/* CRT scanline texture over the photo. */
+.avatar-grid {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 240, 255, 0.07),
+    rgba(0, 240, 255, 0.07) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* Light bar sweeping top to bottom, like a scanner pass. */
+.avatar-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 30%;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 240, 255, 0.28) 50%,
+    transparent 100%
+  );
+  animation: avatar-sweep 3.2s ease-in-out infinite;
+}
+
+@keyframes avatar-sweep {
+  0% {
+    transform: translateY(-110%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(360%);
+    opacity: 0;
+  }
+}
+
+/* Arc rings. A conic gradient masked to a thin annulus, so only a slice
+   of the ring is visible and the rotation reads as a sweep. */
+.avatar-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 2px),
+    #000 calc(100% - 2px)
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 2px),
+    #000 calc(100% - 2px)
+  );
+}
+
+.avatar-ring-outer {
+  inset: -12px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 200deg,
+    var(--secondary) 300deg,
+    transparent 340deg
+  );
+  animation: avatar-spin 4s linear infinite;
+}
+
+.avatar-ring-inner {
+  inset: -6px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 240deg,
+    var(--primary) 320deg,
+    transparent 350deg
+  );
+  animation: avatar-spin 2.8s linear infinite reverse;
+}
+
+/* Dashed outer boundary, slow counter-rotation. */
+.avatar-dashes {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  border: 1px dashed rgba(0, 240, 255, 0.35);
+  pointer-events: none;
+  animation: avatar-spin 18s linear infinite reverse;
+}
+
+/* Node orbiting the rim. */
+.avatar-orbit {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: avatar-spin 6s linear infinite;
+}
+
+.avatar-orbit i {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent), 0 0 24px var(--accent);
+}
+
+@keyframes avatar-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes avatar-breathe {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 14px rgba(0, 240, 255, 0.35));
+  }
+  50% {
+    filter: drop-shadow(0 0 26px rgba(0, 240, 255, 0.6));
+  }
+}
+
+/* Mexico flag badge. Positioned at 45 degrees on the circle's rim:
+   85.36% == 50% + 35.36%, i.e. cos(45)/2 out from centre.
+   The source is 16:9, so object-fit crops it to a square centred on the
+   coat of arms, leaving roughly 21/58/21 green-white-red. */
+.avatar-flag {
+  position: absolute;
+  top: 85.36%;
+  left: 85.36%;
+  transform: translate(-50%, -50%);
+  width: 26%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--secondary);
+  box-shadow:
+    0 0 10px rgba(0, 240, 255, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: help;
+}
+
+.avatar-frame:hover .avatar-flag {
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow:
+    0 0 16px rgba(0, 240, 255, 0.8),
+    0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+/* Motion is decorative here — drop all of it when asked. */
+@media (prefers-reduced-motion: reduce) {
+  .avatar-frame,
+  .avatar-ring,
+  .avatar-dashes,
+  .avatar-orbit,
+  .avatar-scan,
+  .avatar-frame:hover .avatar-image {
+    animation: none;
   }
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
+  .avatar-scan {
+    opacity: 0;
   }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
+}
+
+.scan-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 240, 255, 0.03),
+    rgba(0, 240, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Footer — fixed height, never shrinks, sits below the centered hero. */
+.site-footer {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 3;
+  padding: 1rem 2rem;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  background: rgba(9, 9, 11, 0.7);
+  backdrop-filter: blur(6px);
+}
+
+.site-footer p {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+}
+
+.footer-heart {
+  color: var(--primary);
+  text-shadow: 0 0 10px var(--primary);
+  animation: heart-pulse 1.6s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes heart-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+}
+
+@keyframes cursor-blink {
+  0%, 49% {
+    background: var(--secondary);
+    box-shadow: 0 0 10px var(--secondary);
+  }
+  50%, 100% {
+    background: transparent;
+    box-shadow: none;
   }
 }

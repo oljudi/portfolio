@@ -1,0 +1,82 @@
+{
+  "name": "Oljudi",
+  "title": "Software Engineer | LLMOps Enthusiast",
+  "bio": "Crafting digital experiences with code and creativity. Specialized in modern web technologies and innovative solutions. LLMOps enthusiast with a passion for building scalable and efficient systems.",
+  "avatar": "./assets/me.jpeg",
+  "email": "oljudimark@gmail.com",
+  "social": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/oljudi",
+      "icon": "github"
+    },
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/in/oljudi",
+      "icon": "linkedin"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Languages",
+      "items": ["JavaScript < TypeScript", "Python"]
+    },
+    {
+      "category": "Cloud & Infra",
+      "items": [
+        "AWS (Lambdas, S3, EC2, RDS, CloudWatch, Bedrock, etc.)",
+        "GCP (Cloud Functions, Cloud Run, etc.)",
+        "Terraform",
+        "Databricks",
+        "Docker"
+      ]
+    },
+    {
+      "category": "AI & LLMOps",
+      "items": [
+        "LangChain",
+        "CrewAI (LangChain, LlamaIndex, OpenAI API, etc.)",
+        "Guardrails (LangChain, LlamaIndex, OpenAI API, etc.)",
+        "n8n (Workflow Automation)"
+      ]
+    },
+    {
+      "category": "Web & Frameworks",
+      "items": [
+        "React (Next.js, Remix)",
+        "Node.js (Express, NestJS)",
+        "System Architecture",
+        "Performance Optimization"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "Coming soon...",
+      "description": "",
+      "tech": [],
+      "status": "In Progress"
+    }
+  ],
+  "certifications": [
+    {
+      "id": 1,
+      "name": "Ironhack Full Stack Web Development",
+      "issuer": "Ironhack",
+      "year": 2023,
+      "credential": "Certification",
+      "icon": "💻",
+      "url": "https://www.credential.net/ec100e28-7f43-4b4d-95d6-5e73fe14bef7#acc.ahKrMS7g"
+    },
+    {
+      "id": 2,
+      "name": "AWS Certified Cloud Practitioner",
+      "issuer": "Amazon Web Services",
+      "year": 2022,
+      "credential": "Certification",
+      "icon": "☁️",
+      "url": "https://www.credly.com/badges/67a0ba5d-f64f-4bde-bc9b-30e165f6b97e/linked_in_profile"
+    }
+  ]
+}

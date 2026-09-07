@@ -1,111 +1,181 @@
+/* Nunito: bored.com's actual body font, pulled from their shipped
+   stylesheet (self-hosted Next/font). Used for UI chrome; the terminal
+   content itself stays monospace, since a terminal in a rounded
+   humanist sans would stop reading as a terminal. */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* Cyberpunk neon accents — pop harder against dark than they did on white */
+  --primary: #FF006E;
+  --primary-light: #FF1E8C;
+  --secondary: #00B8D4;
+  --secondary-dark: #0088A8;
+  --accent: #39FF14;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* Full Tailwind zinc scale, dark end included, so the bored.com shape
+     language (rounded cards, pill chips, this exact neutral family)
+     survives the flip to a dark theme instead of just re-skinning it. */
+  --zinc-50: #fafafa;
+  --zinc-100: #f4f4f5;
+  --zinc-200: #e4e4e7;
+  --zinc-300: #d4d4d8;
+  --zinc-400: #a1a1aa;
+  --zinc-500: #71717a;
+  --zinc-700: #3f3f46;
+  --zinc-800: #27272a;
+  --zinc-900: #18181b;
+  --zinc-950: #09090b;
+  --gold: #fac800;
+  --rose: #fb7185;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
+  --dark-bg: var(--zinc-950);
+  --darker-bg: var(--zinc-900);
+  --card-bg: var(--zinc-900);
+  --text: var(--zinc-300);
+  --text-bright: var(--zinc-50);
+  --text-dim: var(--zinc-500);
+  --border: var(--zinc-700);
+  --success: #39FF14;
+  --danger: #FF006E;
+  --warning: var(--gold);
+
+  /* Typography */
+  --sans: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --heading: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Courier New', monospace;
+
+  /* Effects */
+  --glow: 0 0 20px rgba(0, 240, 255, 0.3);
+  --glow-pink: 0 0 20px rgba(255, 0, 110, 0.3);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+  font: 16px/1.6 var(--sans);
+  letter-spacing: 0;
+  color-scheme: dark;
   color: var(--text);
-  background: var(--bg);
+  background: var(--dark-bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
   @media (max-width: 1024px) {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+/* Viewport-locked: the page itself never scrolls. Overflow is handled
+   inside the terminal body instead. */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+/* bored.com's dot-grid, inverted for a dark theme: zinc-950 base,
+   faint light dots instead of their light-mode zinc-300-on-#f8f8f8. */
+body {
+  --page-dot-size: 24px;
+  background-color: var(--zinc-950);
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: var(--page-dot-size) var(--page-dot-size);
+  background-attachment: fixed;
 }
 
 #root {
-  width: 1126px;
+  width: 100%;
   max-width: 100%;
+  height: 100svh;
   margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
 }
 
-body {
-  margin: 0;
-}
 
 h1,
-h2 {
+h2,
+h3 {
   font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+  font-weight: 700;
+  color: var(--text-bright);
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
+  font-size: 3.5rem;
+  margin: 1rem 0;
+  color: var(--secondary);
+  text-shadow: 0 0 10px var(--secondary), 0 0 20px rgba(0, 240, 255, 0.5);
+  animation: glow-pulse 2s ease-in-out infinite;
+
   @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+    font-size: 2.5rem;
   }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+h2 {
+  font-size: 1.8rem;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--primary);
+  text-shadow: 0 0 10px var(--primary);
+
+  @media (max-width: 1024px) {
+    font-size: 1.5rem;
+  }
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin: 1rem 0 0.5rem;
+  color: var(--secondary);
+}
+
+p {
+  margin: 0.5rem 0;
+  color: var(--text);
 }
 
 code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  font-family: var(--mono);
+  color: var(--accent);
+  background: rgba(57, 255, 20, 0.1);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(57, 255, 20, 0.3);
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    text-shadow: 0 0 10px var(--secondary), 0 0 20px rgba(0, 240, 255, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px var(--secondary), 0 0 40px rgba(0, 240, 255, 0.7);
+  }
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: -2px 0 #FF006E, 2px 0 #00F0FF;
+  }
+  20% {
+    text-shadow: -2px 0 #FF006E, 2px 0 #00F0FF;
+  }
+  40% {
+    text-shadow: -2px 0 #00F0FF, 2px 0 #FF006E;
+  }
+  60% {
+    text-shadow: -2px 0 #FF006E, 2px 0 #00F0FF;
+  }
+  80% {
+    text-shadow: -2px 0 #00F0FF, 2px 0 #FF006E;
+  }
+  100% {
+    text-shadow: -2px 0 #FF006E, 2px 0 #00F0FF;
+  }
 }

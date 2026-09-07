@@ -1,0 +1,229 @@
+/* Resume card — same shape language as the terminal window (rounded,
+   cyan border/glow, dark zinc surfaces), sized to sit below the hero. */
+.resume-section {
+  flex-shrink: 0;
+  width: 100%;
+  padding: 0 2rem 2rem;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem 1.5rem;
+  }
+}
+
+.resume-card {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 2px solid var(--secondary);
+  border-radius: 14px;
+  box-shadow:
+    0 0 30px rgba(0, 184, 212, 0.15),
+    0 8px 24px rgba(0, 0, 0, 0.5);
+  max-height: 40vh;
+  overflow: hidden;
+}
+
+.resume-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  padding: 0.7rem 1rem;
+  background: var(--zinc-800);
+  border-bottom: 1px solid var(--border);
+}
+
+.resume-dots {
+  display: flex;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+
+.resume-title {
+  flex: 1;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resume-link {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  color: var(--secondary);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: filter 0.2s ease;
+}
+
+.resume-link:hover {
+  filter: brightness(1.3);
+  text-decoration: underline;
+}
+
+.resume-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 1.5rem 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem 1.25rem;
+  }
+}
+
+.resume-status {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.resume-status a {
+  color: var(--secondary);
+}
+
+.resume-status-error {
+  color: var(--primary);
+}
+
+/* Rendered markdown. Scoped to this wrapper so it doesn't leak into the
+   rest of the page's h1/h2/h3 (which are uppercase, letter-spaced, glowing
+   — wrong register for prose). */
+.resume-markdown {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.resume-markdown h1,
+.resume-markdown h2,
+.resume-markdown h3,
+.resume-markdown h4 {
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-bright);
+  text-shadow: none;
+  margin: 1.2rem 0 0.5rem;
+}
+
+.resume-markdown h1:first-child,
+.resume-markdown h2:first-child {
+  margin-top: 0;
+}
+
+.resume-markdown h1 {
+  font-size: 1.4rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+}
+
+.resume-markdown h2 {
+  font-size: 1.15rem;
+}
+
+.resume-markdown h3 {
+  font-size: 1rem;
+}
+
+.resume-markdown p {
+  margin: 0.6rem 0;
+  color: var(--text);
+}
+
+.resume-markdown a {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+.resume-markdown code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  background: var(--zinc-800);
+  color: var(--accent);
+  border: 1px solid var(--border);
+}
+
+.resume-markdown pre {
+  background: var(--zinc-950);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.resume-markdown pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.resume-markdown ul,
+.resume-markdown ol {
+  padding-left: 1.4rem;
+  margin: 0.6rem 0;
+}
+
+/* A <p> following a <ul> is the next resume entry (job/cert/education) —
+   RESUME.md has no per-entry heading, so this is the only reliable seam
+   to hang a divider on. */
+.resume-markdown ul + p {
+  margin-top: 1.4rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border);
+}
+
+.resume-markdown p {
+  line-height: 1.55;
+}
+
+.resume-markdown li {
+  margin: 0.3rem 0;
+}
+
+.resume-markdown blockquote {
+  margin: 0.6rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--secondary);
+  color: var(--text-dim);
+}
+
+.resume-markdown hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.2rem 0;
+}
+
+.resume-markdown img {
+  max-width: 100%;
+}
+
+.resume-markdown table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.8rem 0;
+  font-size: 0.85rem;
+}
+
+.resume-markdown th,
+.resume-markdown td {
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+}
+
+.resume-markdown th {
+  background: var(--zinc-800);
+  color: var(--text-bright);
+}
