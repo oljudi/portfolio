@@ -1,7 +1,8 @@
 {
-  "name": "Oljudi",
-  "title": "Software Engineer | LLMOps Enthusiast",
-  "bio": "Crafting digital experiences with code and creativity. Specialized in modern web technologies and innovative solutions. LLMOps enthusiast with a passion for building scalable and efficient systems.",
+  "name": "Diego Olvera Juarez",
+  "nickname": "Oljudi",
+  "title": "Sr Software Engineer",
+  "bio": "I am passionate about contributing to a community dedicated to leveraging technology for the enhancement and simplification of daily living experiences.",
   "avatar": "./assets/me.jpeg",
   "email": "oljudimark@gmail.com",
   "social": [
@@ -26,7 +27,8 @@
       "items": [
         "AWS (Lambdas, S3, EC2, RDS, CloudWatch, Bedrock, etc.)",
         "GCP (Cloud Functions, Cloud Run, etc.)",
-        "Terraform",
+        "IaC - Terraform",
+        "RabbitMQ - Kafka",
         "Databricks",
         "Docker"
       ]
@@ -44,9 +46,10 @@
       "category": "Web & Frameworks",
       "items": [
         "React (Next.js, Remix)",
-        "Node.js (Express, NestJS)",
+        "Node.js (Express, NestJS, GraphQL)",
         "System Architecture",
-        "Performance Optimization"
+        "Performance Optimization",
+        "Angular"
       ]
     }
   ],

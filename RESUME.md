@@ -4,14 +4,6 @@ oljudimark@gmail.com
 
 México City, Mexico
 
----
-
-Software Engineer
-
----
-
-I am passionate about contributing to a community dedicated to leveraging technology for the enhancement and simplification of daily living experiences.
-
 ## Work Experience
 
 Sr Software Engineer
@@ -66,34 +58,10 @@ Ironhack Fullstack Developer
 01/2020 - 03/2020
 Web Development bootcamp, learning MERN(Mongo, Express, React, Node) stack, TDD
 
-## Skills
-
-- React.js
-- Node.js
-- Express
-- JavaScript
-- Angular
-- AuroraDB
-- MongoDB
-- DynamoDB
-- SQL
-- GraphQL
-- PostgresSQL
-- ES6
-- Python
-- TypeScript
-- TypeORM
-- Serverless
-- AEM
-- Terraform
-- SQS
-- RabbitMQ
-- Databricks
-
 ## Education
 
 Engineer in Communications and Electronics
-IPN, Escuela Superior de Ingeniería Mecánica y Eléctrica
+IPN, Escuela Superior de Ingeniería Mecánica y Eléctrica (ESIME)
 06/2014 - 06/2019
 Courses
 
@@ -101,11 +69,3 @@ Courses
 
 - English- (60/100)
 - Spanish- (100/100)
-
-## Soft Skills
-
-- Observer
-- Team Worker
-- Problem Solver
-- Entrepreneur
-- Fast Learner
