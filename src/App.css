@@ -3,24 +3,17 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
-/* Hero Section — takes all space the footer and resume section don't,
-   and centers the grid inside it. min-height:0 lets it shrink below its
-   content so the terminal body absorbs the overflow first. */
-/* flex-grow:3 vs. resume-section's flex-grow:2 — the two share whatever
-   vertical space the (fixed-size) footer leaves, in a fixed 3:2 ratio,
-   instead of each claiming an independent vh value that can add up to
-   more than the viewport and force an overlap. */
+/* Hero — fills the first screen under the sticky header; the reading
+   sections follow below it. */
 .hero-section {
-  flex: 3 1 0;
-  min-height: 0;
+  min-height: calc(100svh - var(--header-h));
+  box-sizing: border-box;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
   padding: 2.5rem 2rem;
   position: relative;
@@ -64,13 +57,10 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 2rem;
-  min-height: 0;
-  max-height: 100%;
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    overflow-y: auto;
   }
 }
 
@@ -126,20 +116,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 0;
-  max-height: 100%;
+  min-width: 0;
 
   @media (max-width: 1024px) {
     grid-column: 1;
   }
 }
 
-/* Avatar hides on short viewports so the terminal keeps a usable height. */
-@media (max-height: 620px) and (min-width: 1025px) {
-  .hero-sidebar .avatar-container {
-    display: none;
-  }
-}
 
 /* ============================================
    About panel — sidebar card under the avatar
@@ -513,5 +496,149 @@
   50%, 100% {
     background: transparent;
     box-shadow: none;
+  }
+}
+
+/* ============================================
+   Header — language switch + section nav
+   ============================================ */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 20;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  background: var(--secondary);
+  color: var(--zinc-950);
+  font-weight: 700;
+  text-decoration: none;
+
+  &:focus {
+    top: 0.5rem;
+  }
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: var(--header-h);
+  border-bottom: 1px solid var(--border);
+  background: rgba(9, 9, 11, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+.site-header-inner {
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+    gap: 0.75rem;
+  }
+}
+
+.lang-switch {
+  display: flex;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  overflow: hidden;
+
+  button {
+    font: 600 0.75rem var(--mono);
+    letter-spacing: 1px;
+    padding: 0.3rem 0.7rem;
+    border: 0;
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+  }
+
+  button[aria-pressed="true"] {
+    background: var(--secondary);
+    color: var(--zinc-950);
+  }
+
+  button:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+  }
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.25rem;
+  margin-left: auto;
+  white-space: nowrap;
+
+  a {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.25rem 0;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: var(--secondary);
+  }
+
+  /* Phones: collapses into a dropdown panel under the header. */
+  @media (max-width: 640px) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem 1rem 1rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(9, 9, 11, 0.96);
+
+    &[data-open="false"] {
+      display: none;
+    }
+
+    a {
+      padding: 0.75rem 0;
+      font-size: 0.95rem;
+      border-bottom: 1px dashed var(--zinc-800);
+    }
+
+    a:last-child {
+      border-bottom: 0;
+    }
+  }
+}
+
+.menu-button {
+  display: none;
+  margin-left: auto;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-bright);
+  font-size: 1.1rem;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 640px) {
+    display: grid;
+    place-items: center;
   }
 }

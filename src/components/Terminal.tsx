@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import portfolioData from "../data/portfolio.json";
+import { UI, type Lang } from "../i18n";
 import "./Terminal.css";
 
 type LineKind = "default" | "accent" | "dim" | "error" | "success" | "heading";
@@ -16,53 +17,55 @@ type Entry = {
   lines: Line[];
 };
 
-const COMMANDS = ["help", "skills", "projects", "certs", "contact", "clear"];
+const COMMANDS = ["help", "skills", "projects", "certs", "contact", "clear"] as const;
 
-const BOOT_LINES: Line[] = [
-  { text: "booting neural interface...", kind: "dim" },
-  { text: "mounting /dev/portfolio ......... OK", kind: "success" },
-  { text: "establishing uplink ............ OK", kind: "success" },
-  { text: `identity confirmed: ${portfolioData.nickname}`, kind: "accent" },
+type Strings = (typeof UI)[Lang]["term"];
+
+const BOOT_COUNT = 4;
+
+const bootLines = (t: Strings): Line[] => [
+  { text: t.boot[0], kind: "dim" },
+  { text: t.boot[1], kind: "success" },
+  { text: t.boot[2], kind: "success" },
+  { text: `${t.boot[3]} ${portfolioData.nickname}`, kind: "accent" },
 ];
 
-const WELCOME: Line[] = [
+const welcome = (t: Strings, lang: Lang): Line[] => [
   {
-    text: `${portfolioData.nickname} // ${portfolioData.title}`,
+    text: `${portfolioData.nickname} // ${portfolioData.title[lang]}`,
     kind: "heading",
   },
   { text: "" },
-  { text: "Type 'help' to see available commands.", kind: "default" },
-  { text: "Commands are case insensitive.", kind: "dim" },
+  { text: t.welcome[0], kind: "default" },
+  { text: t.welcome[1], kind: "dim" },
 ];
 
-function runCommand(raw: string): Line[] | "CLEAR" {
+function runCommand(raw: string, lang: Lang): Line[] | "CLEAR" {
   const cmd = raw.trim().toLowerCase();
+  const t = UI[lang].term;
 
   if (cmd === "") return [];
 
   switch (cmd) {
     case "help":
       return [
-        { text: "AVAILABLE COMMANDS", kind: "heading" },
+        { text: t.helpTitle, kind: "heading" },
         { text: "" },
-        { text: "  help        Show this message" },
-        { text: "  skills      My tech stack" },
-        { text: "  projects    What I've built" },
-        { text: "  certs       Certifications & credentials" },
-        { text: "  contact     Get in touch" },
-        { text: "  clear       Wipe the terminal" },
+        ...COMMANDS.map((name) => ({
+          text: `  ${name.padEnd(12)}${t.help[name]}`,
+        })),
         { text: "" },
-        { text: "Hint: ↑/↓ recalls history, Tab autocompletes.", kind: "dim" },
+        { text: t.hint, kind: "dim" },
       ];
 
     case "skills": {
       const lines: Line[] = [
-        { text: "TECH STACK", kind: "heading" },
+        { text: t.skillsTitle, kind: "heading" },
         { text: "" },
       ];
       portfolioData.skills.forEach((group) => {
         lines.push({
-          text: `  ${group.category.toUpperCase()}`,
+          text: `  ${group.category[lang].toUpperCase()}`,
           kind: "accent",
         });
         group.items.forEach((item) => {
@@ -75,13 +78,13 @@ function runCommand(raw: string): Line[] | "CLEAR" {
 
     case "projects": {
       const lines: Line[] = [
-        { text: "PROJECTS", kind: "heading" },
+        { text: t.projectsTitle, kind: "heading" },
         { text: "" },
       ];
       portfolioData.projects.forEach((project) => {
-        lines.push({ text: `  ${project.name}`, kind: "accent" });
-        lines.push({ text: `  status: ${project.status}`, kind: "success" });
-        lines.push({ text: `  ${project.description}` });
+        lines.push({ text: `  ${project.name[lang]}`, kind: "accent" });
+        lines.push({ text: `  status: ${project.status[lang]}`, kind: "success" });
+        lines.push({ text: `  ${project.description[lang]}` });
         lines.push({ text: `  [${project.tech.join("] [")}]`, kind: "dim" });
         lines.push({ text: "" });
       });
@@ -90,7 +93,7 @@ function runCommand(raw: string): Line[] | "CLEAR" {
 
     case "certs": {
       const lines: Line[] = [
-        { text: "CERTIFICATIONS", kind: "heading" },
+        { text: t.certsTitle, kind: "heading" },
         { text: "" },
       ];
       portfolioData.certifications.forEach((cert) => {
@@ -99,7 +102,7 @@ function runCommand(raw: string): Line[] | "CLEAR" {
           kind: "accent",
         });
         lines.push({
-          text: `     ${cert.issuer} · ${cert.year} · ${cert.credential}`,
+          text: `     ${cert.issuer} · ${cert.year} · ${cert.credential[lang]}`,
           kind: "success",
         });
         lines.push({ text: `     ${cert.url}`, kind: "dim", href: cert.url });
@@ -110,7 +113,7 @@ function runCommand(raw: string): Line[] | "CLEAR" {
 
     case "contact": {
       const lines: Line[] = [
-        { text: "GET IN TOUCH", kind: "heading" },
+        { text: t.contactTitle, kind: "heading" },
         { text: "" },
         {
           text: `  email    ${portfolioData.email}`,
@@ -133,13 +136,15 @@ function runCommand(raw: string): Line[] | "CLEAR" {
 
     default:
       return [
-        { text: `command not found: ${cmd}`, kind: "error" },
-        { text: "Type 'help' for the list of commands.", kind: "dim" },
+        { text: `${t.notFound} ${cmd}`, kind: "error" },
+        { text: t.tryHelp, kind: "dim" },
       ];
   }
 }
 
-export function Terminal() {
+export function Terminal({ lang }: { lang: Lang }) {
+  const t = UI[lang].term;
+  const BOOT_LINES = bootLines(t);
   const [bootIndex, setBootIndex] = useState(0);
   const [booted, setBooted] = useState(false);
   const [entries, setEntries] = useState<Entry[]>([]);
@@ -155,12 +160,10 @@ export function Terminal() {
   useEffect(() => {
     const timers: ReturnType<typeof setTimeout>[] = [];
 
-    BOOT_LINES.forEach((_, i) => {
-      timers.push(setTimeout(() => setBootIndex(i + 1), 260 * (i + 1)));
-    });
-    timers.push(
-      setTimeout(() => setBooted(true), 260 * (BOOT_LINES.length + 1)),
-    );
+    for (let i = 1; i <= BOOT_COUNT; i++) {
+      timers.push(setTimeout(() => setBootIndex(i), 260 * i));
+    }
+    timers.push(setTimeout(() => setBooted(true), 260 * (BOOT_COUNT + 1)));
 
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -188,7 +191,7 @@ export function Terminal() {
   };
 
   const submit = (value: string) => {
-    const result = runCommand(value);
+    const result = runCommand(value, lang);
     setLine("");
     setHistoryIndex(-1);
 
@@ -297,7 +300,7 @@ export function Terminal() {
         {booted && (
           <>
             <div className="term-divider" />
-            {WELCOME.map((line, i) => renderLine(line, i))}
+            {welcome(t, lang).map((line, i) => renderLine(line, i))}
 
             {entries.map((entry) => (
               <div key={entry.id} className="term-entry">
@@ -339,7 +342,7 @@ export function Terminal() {
                   onClick={syncCaret}
                   autoComplete="off"
                   spellCheck={false}
-                  aria-label="Terminal command input"
+                  aria-label={t.inputLabel}
                 />
               </div>
             </div>
@@ -349,7 +352,7 @@ export function Terminal() {
 
       {booted && (
         <div className="terminal-hints">
-          <span className="hints-label">try:</span>
+          <span className="hints-label">{t.tryLabel}</span>
           {COMMANDS.map((cmd) => (
             <button
               key={cmd}

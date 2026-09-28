@@ -44,11 +44,12 @@ src/
   main.tsx                        mounts <App /> into #root
   App.tsx / App.css               page shell: 12-col grid, avatar, about card, footer
   index.css                       theme tokens (colors, fonts, dot-grid background)
+  i18n.ts                         EN/ES UI strings + language detection/persistence
   data/
-    portfolio.json                name, bio, skills (grouped), projects, certs, social
+    portfolio.json                all content; translatable fields are { en, es }
   components/
     Terminal.tsx / Terminal.css   the interactive terminal (see below)
-    ResumeSection.tsx / .css      fetches & renders RESUME.md from GitHub
+    Sections.tsx / .css           about, career path, education & certs, skills
     SchemaMarkup.tsx              injects Person/CreativeWork/Credential JSON-LD
 ```
 
@@ -75,14 +76,11 @@ is reflected in the terminal with no code change.
 - **`src/data/portfolio.json`** — the single source of truth for identity,
   skills, projects, certifications, and social links. Consumed by both the
   sidebar about card and the terminal commands.
-- **`RESUME.md`** — plain-text résumé, rendered by `ResumeSection` via a
-  live `fetch()` to `raw.githubusercontent.com/oljudi/portfolio/main/RESUME.md`.
-  This is a runtime network call, not local data — the only place in the app
-  that reaches outside `src/`. It requires the repo to be public and pushed;
-  until then the card shows an error state with a link to the repo.
-- **`RESUME.md`'s markdown needs a space after list-marker dashes**
-  (`- Skill`, not `-Skill`) — CommonMark won't parse the latter as a list
-  item at all.
+- **Language** — `en`/`es` only. UI strings live in `src/i18n.ts` (the `es`
+  object is typed against `en`, so a missing key fails the build); content
+  strings live in `portfolio.json` as `{ "en": ..., "es": ... }`. The choice
+  is saved in `localStorage`, falling back to the browser language.
+- **`RESUME.md`** is no longer rendered; the sections read `portfolio.json`.
 
 ## Docker
 

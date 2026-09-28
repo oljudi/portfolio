@@ -1,29 +1,34 @@
 {
   "name": "Diego Olvera Juarez",
   "nickname": "Oljudi",
-  "title": "Sr Software Engineer",
-  "bio": "I am passionate about contributing to a community dedicated to leveraging technology for the enhancement and simplification of daily living experiences.",
-  "avatar": "./assets/me.jpeg",
+  "title": { "en": "Sr Software Engineer", "es": "Sr Software Engineer" },
+  "bio": {
+    "en": "I am passionate about contributing to a community dedicated to leveraging technology for the enhancement and simplification of daily living experiences.",
+    "es": "Me apasiona contribuir a una comunidad dedicada a aprovechar la tecnología para mejorar y simplificar las experiencias de la vida diaria."
+  },
+  "about": {
+    "en": [
+      "I am a **Senior Software Engineer** based in **Mexico City**, currently at **Takeda**, where I build high-performance applications on **AWS** with **Node, React, TypeScript and Python**, provisioned with **Terraform** and shipped through **GitHub Actions**.",
+      "Before that I worked at **Nowports**, **KAVAK** and **Banco Azteca**, designing robust services and reusable UI. Lately I focus on **AI & LLMOps**: agents with LangChain and CrewAI, guardrails, and workflow automation with n8n."
+    ],
+    "es": [
+      "Soy **Senior Software Engineer** en la **Ciudad de México**, actualmente en **Takeda**, donde construyo aplicaciones de alto rendimiento en **AWS** con **Node, React, TypeScript y Python**, aprovisionadas con **Terraform** y desplegadas con **GitHub Actions**.",
+      "Antes trabajé en **Nowports**, **KAVAK** y **Banco Azteca**, diseñando servicios robustos y UI reutilizable. Últimamente me enfoco en **IA y LLMOps**: agentes con LangChain y CrewAI, guardrails y automatización de flujos con n8n."
+    ]
+  },
+  "location": { "en": "Mexico City, Mexico", "es": "Ciudad de México, México" },
   "email": "oljudimark@gmail.com",
   "social": [
-    {
-      "name": "GitHub",
-      "url": "https://github.com/oljudi",
-      "icon": "github"
-    },
-    {
-      "name": "LinkedIn",
-      "url": "https://www.linkedin.com/in/oljudi",
-      "icon": "linkedin"
-    }
+    { "name": "GitHub", "url": "https://github.com/oljudi" },
+    { "name": "LinkedIn", "url": "https://www.linkedin.com/in/oljudi" }
   ],
   "skills": [
     {
-      "category": "Languages",
+      "category": { "en": "Programming languages", "es": "Lenguajes de programación" },
       "items": ["JavaScript < TypeScript", "Python"]
     },
     {
-      "category": "Cloud & Infra",
+      "category": { "en": "Cloud & Infra", "es": "Nube e infraestructura" },
       "items": [
         "AWS (Lambdas, S3, EC2, RDS, CloudWatch, Bedrock, etc.)",
         "GCP (Cloud Functions, Cloud Run, etc.)",
@@ -34,7 +39,7 @@
       ]
     },
     {
-      "category": "AI & LLMOps",
+      "category": { "en": "AI & LLMOps", "es": "IA y LLMOps" },
       "items": [
         "LangChain",
         "CrewAI (LangChain, LlamaIndex, OpenAI API, etc.)",
@@ -43,7 +48,7 @@
       ]
     },
     {
-      "category": "Web & Frameworks",
+      "category": { "en": "Web & Frameworks", "es": "Web y frameworks" },
       "items": [
         "React (Next.js, Remix)",
         "Node.js (Express, NestJS, GraphQL)",
@@ -53,13 +58,99 @@
       ]
     }
   ],
+  "spokenLanguages": [
+    { "name": { "en": "Spanish", "es": "Español" }, "level": { "en": "native", "es": "nativo" } },
+    { "name": { "en": "English", "es": "Inglés" }, "level": { "en": "professional working", "es": "profesional" } }
+  ],
+  "experience": [
+    {
+      "role": "Sr Software Engineer",
+      "company": "Takeda",
+      "start": "06/2024",
+      "end": null,
+      "location": { "en": "Mexico City, Mexico", "es": "Ciudad de México, México" },
+      "highlights": {
+        "en": [
+          "Develop high-performance applications using modern design patterns and best code practices.",
+          "Build applications from scratch to fulfill corporate business requirements.",
+          "Migrate and maintain Microsoft Power Platform based apps."
+        ],
+        "es": [
+          "Desarrollo de aplicaciones de alto rendimiento con patrones de diseño modernos y buenas prácticas.",
+          "Creación de aplicaciones desde cero para cubrir requerimientos de negocio corporativos.",
+          "Migración y mantenimiento de apps basadas en Microsoft Power Platform."
+        ]
+      },
+      "stack": ["Node", "React", "TypeScript", "Python (FastAPI)", "Databricks", "AWS", "Terraform", "GitHub Actions"]
+    },
+    {
+      "role": "Sr Frontend Developer",
+      "company": "Banco Azteca (Contractor)",
+      "start": "01/2024",
+      "end": "06/2024",
+      "location": { "en": "Mexico City, Mexico", "es": "Ciudad de México, México" },
+      "highlights": {
+        "en": [
+          "Administered the Adobe Experience Manager website.",
+          "Created reusable UI components using best code practices."
+        ],
+        "es": [
+          "Administración del sitio web en Adobe Experience Manager.",
+          "Creación de componentes de UI reutilizables con buenas prácticas."
+        ]
+      },
+      "stack": ["AEM", "Angular"]
+    },
+    {
+      "role": "Sr Software Engineer",
+      "company": "Nowports",
+      "start": "11/2022",
+      "end": "11/2023",
+      "location": { "en": "Remote", "es": "Remoto" },
+      "highlights": {
+        "en": ["Designed and developed efficient, high-performance services using modern design patterns and best practices."],
+        "es": ["Diseño y desarrollo de servicios eficientes y de alto rendimiento con patrones de diseño modernos y buenas prácticas."]
+      },
+      "stack": ["Node.js", "React", "Storybook", "TypeScript", "MySQL", "Postgres", "Docker", "TypeORM", "Express", "NestJS"]
+    },
+    {
+      "role": "SSr Software Engineer",
+      "company": "KAVAK Mexico",
+      "start": "12/2021",
+      "end": "05/2023",
+      "location": { "en": "Remote", "es": "Remoto" },
+      "highlights": {
+        "en": ["Designed and built robust services, leveraging modern design patterns and efficient approaches."],
+        "es": ["Diseño y construcción de servicios robustos con patrones de diseño modernos y enfoques eficientes."]
+      },
+      "stack": ["Node.js", "Nx (monorepo)", "GraphQL (Apollo)", "Express"]
+    }
+  ],
+  "education": [
+    {
+      "degree": { "en": "Engineer in Communications and Electronics", "es": "Ingeniería en Comunicaciones y Electrónica" },
+      "school": "IPN — Escuela Superior de Ingeniería Mecánica y Eléctrica (ESIME)",
+      "start": "06/2014",
+      "end": "06/2019"
+    },
+    {
+      "degree": { "en": "Full Stack Web Development Bootcamp", "es": "Bootcamp de Desarrollo Web Full Stack" },
+      "school": "Ironhack",
+      "start": "01/2020",
+      "end": "03/2020",
+      "note": {
+        "en": "MERN stack (Mongo, Express, React, Node) and TDD.",
+        "es": "Stack MERN (Mongo, Express, React, Node) y TDD."
+      }
+    }
+  ],
   "projects": [
     {
       "id": 1,
-      "name": "Coming soon...",
-      "description": "",
+      "name": { "en": "Coming soon...", "es": "Próximamente..." },
+      "description": { "en": "", "es": "" },
       "tech": [],
-      "status": "In Progress"
+      "status": { "en": "In Progress", "es": "En progreso" }
     }
   ],
   "certifications": [
@@ -68,7 +159,7 @@
       "name": "Ironhack Full Stack Web Development",
       "issuer": "Ironhack",
       "year": 2023,
-      "credential": "Certification",
+      "credential": { "en": "Certification", "es": "Certificación" },
       "icon": "💻",
       "url": "https://www.credential.net/ec100e28-7f43-4b4d-95d6-5e73fe14bef7#acc.ahKrMS7g"
     },
@@ -77,7 +168,7 @@
       "name": "AWS Certified Cloud Practitioner",
       "issuer": "Amazon Web Services",
       "year": 2022,
-      "credential": "Certification",
+      "credential": { "en": "Certification", "es": "Certificación" },
       "icon": "☁️",
       "url": "https://www.credly.com/badges/67a0ba5d-f64f-4bde-bc9b-30e165f6b97e/linked_in_profile"
     }

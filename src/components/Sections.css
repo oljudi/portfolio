@@ -1,0 +1,238 @@
+/* Bottom content, modeled on a reading-first academic page: one narrow
+   column, plain headings, thin rules between sections, and the neon kept
+   to accents so long text stays comfortable to read. */
+.sections {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem 3rem;
+  }
+}
+
+.section {
+  scroll-margin-top: calc(var(--header-h) + 1rem);
+}
+
+.section-title {
+  margin: 0 0 1.25rem;
+  font-size: 1.5rem;
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  text-shadow: none;
+
+  &::before {
+    content: "# ";
+    font-family: var(--mono);
+    color: var(--secondary);
+  }
+
+  @media (max-width: 640px) {
+    font-size: 1.25rem;
+  }
+}
+
+.section-rule {
+  margin: 3rem 0;
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border) 15%, var(--border) 85%, transparent);
+}
+
+.section strong {
+  color: var(--text-bright);
+}
+
+.section a {
+  color: var(--secondary);
+  text-underline-offset: 3px;
+}
+
+/* About */
+.about-text {
+  margin: 0 0 1rem;
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.about-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.6rem;
+  margin-top: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+}
+
+.about-meta-item {
+  display: inline-flex;
+  gap: 0.6rem;
+}
+
+/* Timeline — shared by career path and education */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.5rem;
+  border-left: 1px solid var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 2rem;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
+.timeline-dot {
+  position: absolute;
+  top: 0.45rem;
+  left: calc(-1.5rem - 5px);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--secondary);
+  box-shadow: 0 0 10px var(--secondary);
+}
+
+.timeline-item:first-child .timeline-dot {
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.timeline-period {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+}
+
+.timeline-heading {
+  margin: 0.2rem 0 0.4rem;
+}
+
+.timeline-note {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.timeline-points {
+  margin: 0 0 0.6rem;
+  padding-left: 1.1rem;
+  font-size: 0.94rem;
+
+  li {
+    margin-bottom: 0.2rem;
+  }
+
+  li::marker {
+    color: var(--primary);
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  padding: 0.15rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  color: var(--text);
+  background: var(--zinc-900);
+}
+
+/* Certifications — card per credential, like a publication entry */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cert-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 0 18px rgba(0, 184, 212, 0.15);
+  }
+}
+
+.cert-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.cert-name {
+  margin: 0;
+  font-size: 1rem;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-bright);
+}
+
+.cert-meta {
+  margin: 0.2rem 0 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.cert-link {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+
+/* Skills — definition list, label column collapses on phones */
+.skills-list {
+  margin: 0;
+}
+
+.skills-row {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px dashed var(--zinc-800);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  dt {
+    font-weight: 700;
+    color: var(--text-bright);
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}

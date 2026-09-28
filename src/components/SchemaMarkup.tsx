@@ -8,8 +8,8 @@ export function SchemaMarkup() {
       '@context': 'https://schema.org',
       '@type': 'Person',
       name: portfolioData.name,
-      jobTitle: portfolioData.title,
-      description: portfolioData.bio,
+      jobTitle: portfolioData.title.en,
+      description: portfolioData.bio.en,
       url: 'https://oljudi.dev',
       email: portfolioData.email,
       image: 'https://oljudi.dev/avatar.png',
@@ -21,8 +21,8 @@ export function SchemaMarkup() {
     const projectSchemas = portfolioData.projects.map((project) => ({
       '@context': 'https://schema.org',
       '@type': 'CreativeWork',
-      name: project.name,
-      description: project.description,
+      name: project.name.en,
+      description: project.description.en,
       keywords: project.tech.join(', '),
       author: {
         '@type': 'Person',
@@ -39,7 +39,7 @@ export function SchemaMarkup() {
         '@type': 'Organization',
         name: cert.issuer,
       },
-      credentialCategory: cert.credential,
+      credentialCategory: cert.credential.en,
       url: cert.url,
     }))
 
